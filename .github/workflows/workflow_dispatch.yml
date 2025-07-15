@@ -1,15 +1,6 @@
 name: Member Contribution Report
 
 on:
-  schedule:
-    # Runs on the first day of the month at 00:00 UTC
-    #
-    #        ┌────────────── minute
-    #        │ ┌──────────── hour
-    #        │ │ ┌────────── day (month)
-    #        │ │ │ ┌──────── month
-    #        │ │ │ │ ┌────── day (week)
-    - cron: '0 0 1 * *'
   workflow_dispatch:
     inputs:
       fromdate:
@@ -18,6 +9,8 @@ on:
       todate:
         description: 'Optional interval end date (format: yyyy-mm-dd)'
         required: false # Skipped if workflow dispatch input is not provided
+      token:
+        required: true
 
 jobs:
   member-contribution-report:
@@ -30,7 +23,6 @@ jobs:
       - name: Get Member Contributions
         uses: nicklegan/github-org-member-contribution-action@v1.1.1
         with:
-          token: ${{ secrets.ORG_TOKEN }}
+          token: ${{ github.event.inputs.token }}
           fromdate: ${{ github.event.inputs.fromdate }} # Used for workflow dispatch input
           todate: ${{ github.event.inputs.todate }} # Used for workflow dispatch input
-
