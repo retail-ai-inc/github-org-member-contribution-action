@@ -11,7 +11,7 @@ inputs:
     required: false
   days:
     description: 'Amount of days in the past to collect data for'
-    default: '30'
+    default: '180'
     required: false
   sort:
     description: 'Column used for sorting resport results'
